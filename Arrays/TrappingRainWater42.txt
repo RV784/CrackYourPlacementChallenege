@@ -1,0 +1,30 @@
+
+
+class Solution {
+    public int trap(int[] height) {
+        int ans = 0;
+        int[] mxhtl = new int[height.length];
+        int[] mxhtr = new int[height.length];
+        int n = height.length;
+        mxhtl[0] = 0;
+        mxhtr[n-1] = 0;
+        for(int i = 1 ; i < n ; i++){
+            int pvidx = height[i-1];
+            mxhtl[i] = Math.max(pvidx, mxhtl[i-1]);
+        }
+        
+        for(int i = n-2 ; i >= 0 ; i--){
+            int fidx = height[i+1];
+            mxhtr[i] = Math.max(mxhtr[i+1], fidx);
+        }
+        
+        for(int i = 0 ; i < n ; i++){
+            int temp = Math.min(mxhtl[i], mxhtr[i]) - height[i];
+            if(temp >= 0){
+                ans += temp;
+            }
+        }
+        
+        return ans;
+    }
+}
