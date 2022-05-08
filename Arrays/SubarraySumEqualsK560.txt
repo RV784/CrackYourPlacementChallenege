@@ -1,0 +1,22 @@
+class Solution {
+    public int subarraySum(int[] arr, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        int i = -1;
+        int sum = 0;
+        map.put(0, 1);
+        int ans = 0;
+       while(i < arr.length - 1){
+            i++;
+            
+            sum += arr[i];
+            if(map.containsKey(sum - target)){
+                ans += map.get(sum - target);
+            }
+            
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+        
+        return ans;
+    }
+}
