@@ -1,0 +1,58 @@
+class Solution {
+    int res=0;
+    public int reversePairs(int[] nums) {
+     
+     mergesort(nums,0,nums.length-1);  
+        return res;
+    }
+    
+    void merge(int nums[],int l,int h){
+        
+        int mid=(l+h)/2;
+       int a[]=new int[h-l+1];
+        int i1=l,j1=mid+1;
+       
+        while (i1 <= mid && j1 <= h){
+            if ((long) nums[i1] > (long) 2 * nums[j1]){
+                res += (mid - i1 + 1);
+                j1++;
+            }else {
+                i1++;
+            }
+        }
+        
+        
+        
+        int i=l,j=mid+1,k=0;
+        for(;i<=mid&&j<=h;){
+            if(nums[i]>nums[j])
+                a[k++]=nums[j++];
+            else
+                a[k++]=nums[i++];
+                
+        }
+        while(i<=mid)
+            a[k++]=nums[i++];
+        while(j<=h)
+            a[k++]=nums[j++];
+        
+        for(int i2=l;i2<=h;i2++)
+            nums[i2]=a[i2-l];
+        
+    
+        
+    }
+    
+    
+    void mergesort(int nums[],int l,int h){
+        if(l>=h) return;
+        int mid=(l+h)/2;
+        mergesort(nums,l,mid);
+        mergesort(nums,mid+1,h);
+        merge(nums,l,h);
+        
+        
+    }
+    
+    
+}
