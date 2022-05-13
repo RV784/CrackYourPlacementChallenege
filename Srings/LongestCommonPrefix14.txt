@@ -1,0 +1,40 @@
+
+
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        int slen = Integer.MAX_VALUE;
+        for(String str : strs){
+            slen = Math.min(str.length(), slen);
+        }
+        
+        
+        
+        String ans = "";
+        
+        if(slen == 0){
+            return ans;
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i = 0 ; i < slen ; i++){
+            for(String str : strs){
+                if(map.isEmpty()){
+                    map.put(str.charAt(i), 1);
+                    continue;
+                }else if(map.containsKey(str.charAt(i)) == false){
+                    return ans;
+                }else{
+                    map.put(str.charAt(i), map.get(str.charAt(i)) + 1);
+                }
+            }
+            
+            for(char m : map.keySet()){
+                ans = ans + m;
+            }
+            
+            // ans = ans + ch;
+            map.clear();
+        }
+        return ans;
+        
+    }
+}

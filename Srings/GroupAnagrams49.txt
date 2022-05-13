@@ -1,0 +1,33 @@
+
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        
+        //we'll create a big hashmap where kew would be another hashmap and value would be arraylist.
+        //key will be a frequency map of a string. so key's hashmap will has char as key, integer as value.
+        HashMap<HashMap<Character, Integer>, ArrayList<String>> bmap = new HashMap<>();
+        
+        for(String str: strs){ //creating frequency map
+            HashMap<Character, Integer> fmap = new HashMap<>();
+            for(int i = 0 ; i < str.length() ; i++){
+                char ch = str.charAt(i);
+                fmap.put(ch, fmap.getOrDefault(ch, 0) + 1);  //if ch exixts already, add default-0 +1 = 1;
+            }
+            
+            if(bmap.containsKey(fmap) == false){  //now add fmap as key in bigmap
+                ArrayList<String> list = new ArrayList<>(); //if key is new, create new list for value and add string.
+                list.add(str);
+                bmap.put(fmap, list);
+            }else{
+                ArrayList<String> list = bmap.get(fmap); //if key already exists, just retrieve the key's value and add string to existing value(list)
+                list.add(str);
+            }
+        }
+        
+        List<List<String>> res = new ArrayList<>(); //final list that will contain answers
+        for(ArrayList<String> list: bmap.values()){ //.values() will give list of all values in hashmap
+            res.add(list); //add those in results
+        }
+        return res;
+    }
+}
